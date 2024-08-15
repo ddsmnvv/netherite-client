@@ -14,7 +14,8 @@ const Profile = observer(() => {
 
     useInterval(() => {
       setCount(count - 1);
-      if(count === 0) {
+      if(count <= 0) {
+        setCount(0);
         setIsRunning(false);
       }
     }, isRunning ? delay : null);
