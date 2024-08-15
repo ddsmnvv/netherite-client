@@ -54,8 +54,8 @@ const App = observer(() => {
           "balance" : 0,
           "premium" : tgData.is_premium,
           "language_code" : tgData.language_code,
-          "invited_id" : invitedId,
-          "wallet" : null
+          "invited_id" : invitedId || "",
+          "wallet" : ""
         });
       } else {
         setLoading(false);
