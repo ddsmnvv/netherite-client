@@ -27,53 +27,60 @@ const App = observer(() => {
   useEffect(() => {
     const invitedId = localStorage.getItem("invitedId");
 
-    if (tonAddress) {
-      getUserByWallet(tonAddress)
-        .then(response => {
-          user.setUser(response);
-        })
-        .catch(error => {
-          if (error.response.status === 404 && !tg.initDataUnsafe?.user) {
-            setRedirect(true);
-          } else if(error.response.status === 404) {
-            registerUser(user.user.location, user.user.invitedId, user.user.isPremium, user.user.telegramId, user.user.telegramName, tonAddress)
-            .then(response => {
-              user.user.id = response;
-            })
-            .catch(
-              error => {
-                console.error(error);
-                localStorage.clear();
-                tonConnectUI.disconnect();  
-              }
-            );
-          } else {
-            console.error(error);
-            localStorage.clear();
-            tonConnectUI.disconnect();
-          }
-        })
-        .finally(() => setLoading(false));
-    } else {
-      if (tg.initDataUnsafe?.user) {
-        setLoading(false);
-        if(!invitedId){
-          setReferal(true);
-        }
-        user.setUser({
-          "id" : 0,
-          "balance" : 0,
-          "location" : tg.initDataUnsafe?.user.language_code,
-          "invitedId" : invitedId || null,
-          "isPremium" : tg.initDataUnsafe?.user.is_premium ? true : false,
-          "telegramId" : String(tg.initDataUnsafe?.user.id),
-          "telegramName" : (tg.initDataUnsafe?.user.first_name + " " + tg.initDataUnsafe?.user.last_name).replace(/ +/g, ' ').trim(),
-          "wallet" : null
-        });
+    if(!user.isAuth) {
+      if (tonAddress) {
+        getUserByWallet(tonAddress)
+          .then(response => {
+            user.setUser(response);
+            user.setIsAuth(true);
+          })
+          .catch(error => {
+            if (error.response.status === 404 && !tg.initDataUnsafe?.user) {
+              setRedirect(true);
+            } else if(error.response.status === 404) {
+              registerUser(user.user.location, user.user.invitedId, user.user.isPremium, user.user.telegramId, user.user.telegramName, tonAddress)
+              .then(response => {
+                user.user.id = response;
+                user.setIsAuth(true);
+              })
+              .catch(
+                error => {
+                  console.error(error);
+                  localStorage.clear();
+                  tonConnectUI.disconnect();
+                  user.setIsAuth(false);
+                }
+              );
+            } else {
+              console.error(error);
+              localStorage.clear();
+              tonConnectUI.disconnect();
+              user.setIsAuth(false);
+            }
+          })
+          .finally(() => setLoading(false));
       } else {
-        setLoading(false);
+        if (tg.initDataUnsafe?.user) {
+          setLoading(false);
+          if(!invitedId){
+            setReferal(true);
+          }
+          user.setUser({
+            "id" : 0,
+            "balance" : 0,
+            "location" : tg.initDataUnsafe?.user.language_code,
+            "invitedId" : invitedId || null,
+            "isPremium" : tg.initDataUnsafe?.user.is_premium ? true : false,
+            "telegramId" : String(tg.initDataUnsafe?.user.id),
+            "telegramName" : (tg.initDataUnsafe?.user.first_name + " " + tg.initDataUnsafe?.user.last_name).replace(/ +/g, ' ').trim(),
+            "wallet" : null
+          });
+        } else {
+          setLoading(false);
+        }
       }
     }
+
   }, [tonAddress]);
 
   const handleReferralSubmit = () => {
