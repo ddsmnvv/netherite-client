@@ -36,18 +36,23 @@ const App = observer(() => {
           if (error.response.status === 404 && !tg.initDataUnsafe?.user) {
             setRedirect(true);
           } else if(error.response.status === 404) {
-            //TODO: создать отедльный метод авторизации на сервере, где будет вся логика авторизации вместе.
-            registerUser(user.user.location, user.user.invitedId, user.user.isPremium, user.user.telegramId, user.user.telegramName, tonAddress)
-            .then(response => {
-              user.user.id = response;
-            })
-            .catch(
-              error => {
-                console.error(error);
-                localStorage.clear();
-                tonConnectUI.disconnect();  
-              }
-            );
+            // registerUser(user.user.location, user.user.invitedId, user.user.isPremium, user.user.telegramId, user.user.telegramName, tonAddress)
+            // .then(response => {
+            //   user.user.id = response;
+            // })
+            // .catch(
+            //   error => {
+            //     console.error(error);
+            //     localStorage.clear();
+            //     tonConnectUI.disconnect();  
+            //   }
+            // );
+            console.log(user.user.location);
+            console.log(user.user.invitedId);
+            console.log(user.user.isPremium);
+            console.log(user.user.telegramId);
+            console.log(user.user.telegramName);
+            console.log(tonAddress);
           } else {
             console.error(error);
             localStorage.clear();
