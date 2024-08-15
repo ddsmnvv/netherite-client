@@ -32,9 +32,8 @@ const App = observer(() => {
         .finally(setLoading(false));
     } else {
       const tg = window.Telegram.WebApp;
-      tg.ready();
       setUserTg(tg.initDataUnsafe?.user);
-      if(userTg) {
+      if(tg.ready()) {
         setLoading(false);
         console.log(userTg);
         console.log("test");
