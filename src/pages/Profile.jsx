@@ -13,10 +13,10 @@ const Profile = observer(() => {
     const [isRunning, setIsRunning] = useState(false);
 
     useInterval(() => {
-      setCount(count - 1);
-      if(count <= 0) {
-        setCount(0);
+      if(count === 0) {
         setIsRunning(false);
+      } else {
+        setCount(count - 1);
       }
     }, isRunning ? delay : null);
    
