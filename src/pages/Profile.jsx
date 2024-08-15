@@ -27,7 +27,7 @@ const Profile = observer(() => {
                 console.error(error);
             });
         }
-    }, [user.user.id]);
+    }, [user.user]);
 
     useInterval(() => {
       if(count === 0) {
