@@ -8,8 +8,8 @@ const Profile = observer(() => {
     const {user} = useContext(Context);
     const [tonConnectUI] = useTonConnectUI();
 
-    console.log(user.user());
- 
+    console.log(user.user);
+ 1
     return(
         <>
         <p>Profile</p>
