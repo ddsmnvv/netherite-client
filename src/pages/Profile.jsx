@@ -40,7 +40,7 @@ const Profile = observer(() => {
             <li>wallet: {user.user.wallet}</li>
         </ul>
         <p>{timer}</p>
-        <button onClick={handleStartMining}>Майнинг начать</button>
+        <button onClick={handleStartMining()}>Майнинг начать</button>
         </>
     )
 });
