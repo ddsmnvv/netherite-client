@@ -1,4 +1,4 @@
-import { useTonConnectUI } from '@tonconnect/ui-react';
+import { useTonConnectUI, useTonAddress } from '@tonconnect/ui-react';
 import { observer } from 'mobx-react-lite';
 import { useContext } from 'react';
 import { Context } from '..';
@@ -7,13 +7,23 @@ const Profile = observer(() => {
     
     const {user} = useContext(Context);
     const [tonConnectUI] = useTonConnectUI();
-
-    console.log(user.user);
- 1
+    const address = useTonAddress();
+ 
     return(
         <>
         <p>Profile</p>
-        <button onClick={() => tonConnectUI.openModal()}>Подключить кошель</button>
+        {address ? <button onClick={() => tonConnectUI.openModal()}>Подключить кошель</button> : <button onClick={() => tonConnectUI.disconnect()}>Отключить кошель</button>}
+        {address ? "кошель есть" : "кошель нет"}
+        <ul>
+            <li>id: {user.user.id}</li>
+            <li>telegram_id: {user.user.telegram_id}</li>
+            <li>telegram_name: {user.user.telegram_name}</li>
+            <li>balance: {user.user.balance}</li>
+            <li>premium: {user.user.premium}</li>
+            <li>language_code: {user.user.language_code}</li>
+            <li>invited_id: {user.user.invited_id}</li>
+            <li>wallet: {user.user.wallet}</li>
+        </ul>
         </>
     )
 });
