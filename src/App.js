@@ -10,7 +10,11 @@ import { getUserByWallet } from "./api/userAPI";
 
 const App = observer(() => {
   
+  const tg = window.Telegram.WebApp;
+  tg.ready();
+
   const {user} = useContext(Context);
+  const [tgData, setTgData] = useState(null);
 
   const [loading, setLoading] = useState(true);
   const [redirect, setRedirect] = useState(false);
@@ -18,57 +22,87 @@ const App = observer(() => {
 
   const tonAddress = useTonAddress();
   const [tonConnectUI] = useTonConnectUI();
-  
+
   const [referralLink, setReferralLink] = useState("");
 
   useEffect(() => {
-    if(tonAddress) {
+    const invitedId = localStorage.getItem("invitedId");
+
+    if (tonAddress) {
       getUserByWallet(tonAddress)
         .then(response => console.log(response))
         .catch(error => {
-          if(error.response.status = 404) {
+          if (error.response.status === 404) {
             setRedirect(true);
           } else {
+            localStorage.clear();
             tonConnectUI.disconnect();
           }
         })
-        .finally(setLoading(false));
+        .finally(() => setLoading(false));
     } else {
-      const tg = window.Telegram.WebApp;
-      tg.ready();
-      if(tg.initDataUnsafe?.user) {
+      if (tg.initDataUnsafe?.user) {
+        setTgData(tg.initDataUnsafe?.user);
         setLoading(false);
-        setReferal(true);
+        if(!invitedId){
+          setReferal(true);
+        }
       } else {
         setLoading(false);
       }
     }
-  }, [tonAddress])
+  }, [tonAddress]);
 
   const handleReferralSubmit = () => {
     try {
       const url = new URL(referralLink);
       const invitedId = url.searchParams.get("invitedId");
-      console.log("Invited ID:", invitedId);
+      if (invitedId) {
+        localStorage.setItem("invitedId", invitedId);
+        console.log("Invited ID:", localStorage.getItem("invitedId"));
+        setReferal(false);
+
+        user.setUser({
+          "id" : 0,
+          "telegram_id" : tgData.id,
+          "telegram_name" : (tgData.first_name + " " + tgData.last_name).replace(/ +/g, ' ').trim(),
+          "balance" : 0,
+          "premium" : tgData.is_premium,
+          "language_code" : tgData.language_code,
+          "invited_id" : invitedId,
+          "wallet" : null
+        });
+
+      }
     } catch (e) {
       console.error("Invalid URL");
     }
   };
 
+  const handleReferralCancel = () => {
+    localStorage.setItem("invitedId", null);
+    console.log("Invited ID:", localStorage.getItem("invitedId"));
+    setReferal(false);
+  };
+
   if (loading) {
-    return (<div className="loading-block">
-      <img src={LoadingImage} className="loading-image"/>
-      <h3>Loading...</h3>
-    </div>);
+    return (
+      <div className="loading-block">
+        <img src={LoadingImage} className="loading-image"/>
+        <h3>Loading...</h3>
+      </div>
+    );
   }
 
   if (redirect) {
-    return (<div className="loading-block">
-      <img src={RedirectImage} className="redirect-image"/>
-      <h3>User not found.<br/>Register via Telegram bot.</h3>
-      <button onClick={() => window.location.replace("http://t.me/netheritetrade_bot/netheriteapp")}>Go to Telegram</button>
-      <button onClick={() => { tonConnectUI.disconnect(); setRedirect(false); }}>Disconnect current wallet</button>
-    </div>);
+    return (
+      <div className="loading-block">
+        <img src={RedirectImage} className="redirect-image"/>
+        <h3>User not found.<br/>Register via Telegram bot.</h3>
+        <button onClick={() => window.location.replace("http://t.me/netheritetrade_bot/netheriteapp")}>Go to Telegram</button>
+        <button onClick={() => { tonConnectUI.disconnect(); setRedirect(false); localStorage.clear(); }}>Disconnect current wallet</button>
+      </div>
+    );
   }
 
   if (referal) {
@@ -82,6 +116,7 @@ const App = observer(() => {
             onChange={(e) => setReferralLink(e.target.value)} 
             placeholder="Paste your referral link here"
           />
+          <button onClick={handleReferralCancel}>Cancel</button>
           <button onClick={handleReferralSubmit}>Submit</button>
         </div>
       </div>
