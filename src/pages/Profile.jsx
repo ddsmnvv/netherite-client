@@ -2,7 +2,7 @@ import { useTonConnectUI, useTonAddress } from '@tonconnect/ui-react';
 import { observer } from 'mobx-react-lite';
 import { useContext, useReducer, useState } from 'react';
 import { Context } from '..';
-import { startMining } from '../api/miningAPI';
+import { endMining, startMining } from '../api/miningAPI';
 import useInterval from '../components/hooks/UseInterval';
 
 const Profile = observer(() => {
@@ -21,13 +21,25 @@ const Profile = observer(() => {
     }, isRunning ? delay : null);
    
     function handleStartMining() {
-        setIsRunning(true);
-        setDelay(1000);
+        startMining(user.user.id)
+        .then(response => {
+            if(response) {
+                setIsRunning(true);
+                setDelay(1000);
+            }
+        })
+        .catch(error => console.error(error));
     }
 
     function handleEndMining() {
-        user.user.balance += 100;
-        setCount(40);
+        endMining(user.user.id)
+        .then(response => {
+            if(response) {
+                user.user.balance += 100;
+                setCount(40);
+            }
+        })
+        .catch(error => console.error(error));
     }
 
     const [tonConnectUI] = useTonConnectUI();
