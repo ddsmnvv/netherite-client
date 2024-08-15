@@ -1,6 +1,0 @@
-[[headers]]
-for = “/” # Targeting a specific function
-[headers.values]
-Access-Control-Allow-Origin = “*”
-Access-Control-Allow-Methods = “POST, OPTIONS”
-Access-Control-Allow-Headers = “Content-Type”
