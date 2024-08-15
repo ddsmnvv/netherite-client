@@ -12,8 +12,8 @@ const Profile = observer(() => {
     return(
         <>
         <p>Profile</p>
-        {address ? <button onClick={() => tonConnectUI.openModal()}>Подключить кошель</button> : <button onClick={() => tonConnectUI.disconnect()}>Отключить кошель</button>}
-        {address ? "кошель есть" : "кошель нет"}
+        {address ? <button onClick={() => tonConnectUI.disconnect()}>Отключить кошель</button> : <button onClick={() => tonConnectUI.openModal()}>Подключить кошель</button>}
+        {address ? "кошель нет" : "кошель есть"}
         <ul>
             <li>id: {user.user.id}</li>
             <li>telegram_id: {user.user.telegram_id}</li>

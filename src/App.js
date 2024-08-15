@@ -47,6 +47,16 @@ const App = observer(() => {
         if(!invitedId){
           setReferal(true);
         }
+        user.setUser({
+          "id" : 0,
+          "telegram_id" : tgData.id,
+          "telegram_name" : (tgData.first_name + " " + tgData.last_name).replace(/ +/g, ' ').trim(),
+          "balance" : 0,
+          "premium" : tgData.is_premium,
+          "language_code" : tgData.language_code,
+          "invited_id" : invitedId,
+          "wallet" : null
+        });
       } else {
         setLoading(false);
       }
@@ -61,18 +71,7 @@ const App = observer(() => {
         localStorage.setItem("invitedId", invitedId);
         console.log("Invited ID:", localStorage.getItem("invitedId"));
         setReferal(false);
-
-        user.setUser({
-          "id" : 0,
-          "telegram_id" : tgData.id,
-          "telegram_name" : (tgData.first_name + " " + tgData.last_name).replace(/ +/g, ' ').trim(),
-          "balance" : 0,
-          "premium" : tgData.is_premium,
-          "language_code" : tgData.language_code,
-          "invited_id" : invitedId,
-          "wallet" : null
-        });
-
+        user.user.invited_id = invitedId;
       }
     } catch (e) {
       console.error("Invalid URL");
