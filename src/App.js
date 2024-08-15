@@ -14,8 +14,12 @@ const App = observer(() => {
 
   const [loading, setLoading] = useState(true);
   const [redirect, setRedirect] = useState(false);
+  const [referal, setReferal] = useState(false);
+
   const tonAddress = useTonAddress();
   const [tonConnectUI] = useTonConnectUI();
+  
+  const [referralLink, setReferralLink] = useState("");
 
   useEffect(() => {
     if(tonAddress) {
@@ -34,14 +38,22 @@ const App = observer(() => {
       tg.ready();
       if(tg.initDataUnsafe?.user) {
         setLoading(false);
-        console.log(tg.initDataUnsafe?.user);
-        console.log("test");
-        alert(tg.initDataUnsafe?.user);
+        setReferal(true);
       } else {
         setLoading(false);
       }
     }
   }, [tonAddress])
+
+  const handleReferralSubmit = () => {
+    try {
+      const url = new URL(referralLink);
+      const invitedId = url.searchParams.get("invitedId");
+      console.log("Invited ID:", invitedId);
+    } catch (e) {
+      console.error("Invalid URL");
+    }
+  };
 
   if (loading) {
     return (<div className="loading-block">
@@ -57,6 +69,23 @@ const App = observer(() => {
       <button onClick={() => window.location.replace("http://t.me/netheritetrade_bot/netheriteapp")}>Go to Telegram</button>
       <button onClick={() => { tonConnectUI.disconnect(); setRedirect(false); }}>Disconnect current wallet</button>
     </div>);
+  }
+
+  if (referal) {
+    return (
+      <div className="modal">
+        <div className="modal-content">
+          <h2>Enter Referral Link</h2>
+          <input 
+            type="text" 
+            value={referralLink} 
+            onChange={(e) => setReferralLink(e.target.value)} 
+            placeholder="Paste your referral link here"
+          />
+          <button onClick={handleReferralSubmit}>Submit</button>
+        </div>
+      </div>
+    );
   }
 
   return (
