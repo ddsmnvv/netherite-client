@@ -32,6 +32,7 @@ const App = observer(() => {
         getUserByWallet(tonAddress)
           .then(response => {
             user.setUser(response);
+            console.log(response);
             user.setIsAuth(true);
           })
           .catch(error => {
