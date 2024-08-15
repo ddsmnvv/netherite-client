@@ -8,9 +8,9 @@ export const getUserByWallet = async (wallet) => {
 export const registerUser = async (location, invitedId, isPremium, telegramId, telegramName, wallet) => {
     const data = await $host.post(`User/register`, {
         location: location,
-        invitedId: invitedId || "null",
-        isPremium: isPremium,
-        telegramId: telegramId,
+        invitedId: invitedId || null,
+        isPremium: Boolean(isPremium),
+        telegramId: String(telegramId),
         telegramName: telegramName,
         wallet: wallet
     }, {
