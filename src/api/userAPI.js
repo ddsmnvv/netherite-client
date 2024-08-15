@@ -6,16 +6,17 @@ export const getUserByWallet = async (wallet) => {
 }
 
 export const registerUser = async (location, invitedId, isPremium, telegramId, telegramName, wallet) => {
-    const json = JSON.stringify({
-        "location" : location,
-        "invitedId" : invitedId || null,
-        "isPremium" : isPremium ? "true" : "false",
-        "telegramId" : telegramId,
-        "telegramName" : telegramName,
-        "wallet" : wallet
+    const data = await $host.post(`User/register`, {
+        location: location,
+        invitedId: invitedId || null,
+        isPremium: isPremium,
+        telegramId: telegramId,
+        telegramName: telegramName,
+        wallet: wallet
+    }, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
     });
-    const data = await $host.post(`User/register`, json, {headers: {
-        'Content-Type': 'application/json'
-    }});
     return data;
 }

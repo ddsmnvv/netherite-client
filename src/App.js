@@ -36,23 +36,17 @@ const App = observer(() => {
           if (error.response.status === 404 && !tg.initDataUnsafe?.user) {
             setRedirect(true);
           } else if(error.response.status === 404) {
-            // registerUser(user.user.location, user.user.invitedId, user.user.isPremium, user.user.telegramId, user.user.telegramName, tonAddress)
-            // .then(response => {
-            //   user.user.id = response;
-            // })
-            // .catch(
-            //   error => {
-            //     console.error(error);
-            //     localStorage.clear();
-            //     tonConnectUI.disconnect();  
-            //   }
-            // );
-            console.log(user.user.location);
-            console.log(user.user.invitedId);
-            console.log(user.user.isPremium);
-            console.log(user.user.telegramId);
-            console.log(user.user.telegramName);
-            console.log(tonAddress);
+            registerUser(user.user.location, user.user.invitedId, user.user.isPremium, user.user.telegramId, user.user.telegramName, tonAddress)
+            .then(response => {
+              user.user.id = response;
+            })
+            .catch(
+              error => {
+                console.error(error);
+                localStorage.clear();
+                tonConnectUI.disconnect();  
+              }
+            );
           } else {
             console.error(error);
             localStorage.clear();
@@ -71,7 +65,7 @@ const App = observer(() => {
           "balance" : 0,
           "location" : tg.initDataUnsafe?.user.language_code,
           "invitedId" : invitedId || null,
-          "isPremium" : tg.initDataUnsafe?.user.is_premium,
+          "isPremium" : tg.initDataUnsafe?.user.is_premium ? "true" : "false",
           "telegramId" : tg.initDataUnsafe?.user.id,
           "telegramName" : (tg.initDataUnsafe?.user.first_name + " " + tg.initDataUnsafe?.user.last_name).replace(/ +/g, ' ').trim(),
           "wallet" : null
