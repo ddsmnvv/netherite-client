@@ -31,8 +31,8 @@ const App = observer(() => {
       if (tonAddress) {
         getUserByWallet(tonAddress)
           .then(response => {
-            user.setUser(response);
-            console.log(response);
+            user.setUser(response.data);
+            console.log(response.data);
             user.setIsAuth(true);
           })
           .catch(error => {
