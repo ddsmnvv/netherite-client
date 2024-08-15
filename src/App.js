@@ -16,7 +16,6 @@ const App = observer(() => {
   const [redirect, setRedirect] = useState(false);
   const tonAddress = useTonAddress();
   const [tonConnectUI] = useTonConnectUI();
-  const [userTg, setUserTg] = useState();
 
   useEffect(() => {
     if(tonAddress) {
@@ -32,12 +31,12 @@ const App = observer(() => {
         .finally(setLoading(false));
     } else {
       const tg = window.Telegram.WebApp;
-      setUserTg(tg.initDataUnsafe?.user);
-      if(tg.ready()) {
+      tg.ready();
+      if(tg.initDataUnsafe?.user) {
         setLoading(false);
-        console.log(userTg);
+        console.log(tg.initDataUnsafe?.user);
         console.log("test");
-        alert(userTg);
+        alert(tg.initDataUnsafe?.user);
       } else {
         setLoading(false);
       }
