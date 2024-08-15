@@ -6,7 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 import LoadingImage from "./assets/images/loading-image.png";
 import RedirectImage from "./assets/images/ton-user-not-found.svg";
 import AppRouter from "./components/AppRouter"; 
-import { getUserByWallet } from "./api/userAPI";
+import { getUserByWallet, registerUser } from "./api/userAPI";
 
 const App = observer(() => {
   
@@ -29,12 +29,25 @@ const App = observer(() => {
 
     if (tonAddress) {
       getUserByWallet(tonAddress)
-        .then(response => console.log(response))
+        .then(response => {
+          user.setUser(response);
+        })
         .catch(error => {
           if (error.response.status === 404 && !tg.initDataUnsafe?.user) {
             setRedirect(true);
           } else if(error.response.status === 404) {
-            console.log("регистрация");
+            //TODO: создать отедльный метод авторизации на сервере, где будет вся логика авторизации вместе.
+            registerUser(user.user.location, user.user.invitedId, user.user.isPremium, user.user.telegramId, user.user.telegramName, tonAddress)
+            .then(response => {
+              user.user.id = response;
+            })
+            .catch(
+              error => {
+                console.error(error);
+                localStorage.clear();
+                tonConnectUI.disconnect();  
+              }
+            );
           } else {
             console.error(error);
             localStorage.clear();
@@ -50,12 +63,12 @@ const App = observer(() => {
         }
         user.setUser({
           "id" : 0,
-          "telegram_id" : tg.initDataUnsafe?.user.id,
-          "telegram_name" : (tg.initDataUnsafe?.user.first_name + " " + tg.initDataUnsafe?.user.last_name).replace(/ +/g, ' ').trim(),
           "balance" : 0,
-          "premium" : tg.initDataUnsafe?.user.is_premium,
-          "language_code" : tg.initDataUnsafe?.user.language_code,
-          "invited_id" : invitedId || null,
+          "location" : tg.initDataUnsafe?.user.language_code,
+          "invitedId" : invitedId || null,
+          "isPremium" : tg.initDataUnsafe?.user.is_premium,
+          "telegramId" : tg.initDataUnsafe?.user.id,
+          "telegramName" : (tg.initDataUnsafe?.user.first_name + " " + tg.initDataUnsafe?.user.last_name).replace(/ +/g, ' ').trim(),
           "wallet" : null
         });
       } else {
@@ -72,7 +85,7 @@ const App = observer(() => {
         localStorage.setItem("invitedId", invitedId);
         console.log("Invited ID:", localStorage.getItem("invitedId"));
         setReferal(false);
-        user.user.invited_id = invitedId;
+        user.user.invitedId = invitedId;
       }
     } catch (e) {
       console.error("Invalid URL");

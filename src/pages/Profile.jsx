@@ -16,12 +16,12 @@ const Profile = observer(() => {
         {address ? "кошель есть" : "кошель нет"}
         <ul>
             <li>id: {user.user.id}</li>
-            <li>telegram_id: {user.user.telegram_id}</li>
-            <li>telegram_name: {user.user.telegram_name}</li>
             <li>balance: {user.user.balance}</li>
-            <li>premium: {user.user.premium ? "true" : "false"}</li>
-            <li>language_code: {user.user.language_code}</li>
-            <li>invited_id: {user.user.invited_id}</li>
+            <li>language_code: {user.user.location}</li>
+            <li>invited_id: {user.user.invitedId}</li>
+            <li>premium: {user.user.isPremium ? "true" : "false"}</li>
+            <li>telegram_id: {user.user.telegramId}</li>
+            <li>telegram_name: {user.user.telegramName}</li>
             <li>wallet: {user.user.wallet}</li>
         </ul>
         </>
