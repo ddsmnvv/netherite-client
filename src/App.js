@@ -14,7 +14,6 @@ const App = observer(() => {
   tg.ready();
 
   const {user} = useContext(Context);
-  const [tgData, setTgData] = useState(null);
 
   const [loading, setLoading] = useState(true);
   const [redirect, setRedirect] = useState(false);
@@ -42,20 +41,19 @@ const App = observer(() => {
         .finally(() => setLoading(false));
     } else {
       if (tg.initDataUnsafe?.user) {
-        setTgData(tg.initDataUnsafe?.user);
         setLoading(false);
         if(!invitedId){
           setReferal(true);
         }
         user.setUser({
           "id" : 0,
-          "telegram_id" : tgData.id,
-          "telegram_name" : (tgData.first_name + " " + tgData.last_name).replace(/ +/g, ' ').trim(),
+          "telegram_id" : tg.initDataUnsafe?.user.id,
+          "telegram_name" : (tg.initDataUnsafe?.user.first_name + " " + tg.initDataUnsafe?.user.last_name).replace(/ +/g, ' ').trim(),
           "balance" : 0,
-          "premium" : tgData.is_premium,
-          "language_code" : tgData.language_code,
-          "invited_id" : invitedId || "",
-          "wallet" : ""
+          "premium" : tg.initDataUnsafe?.user.is_premium,
+          "language_code" : tg.initDataUnsafe?.user.language_code,
+          "invited_id" : invitedId || null,
+          "wallet" : null
         });
       } else {
         setLoading(false);

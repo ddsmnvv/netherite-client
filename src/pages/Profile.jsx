@@ -14,7 +14,7 @@ const Profile = observer(() => {
         <p>Profile</p>
         {address ? <button onClick={() => tonConnectUI.disconnect()}>Отключить кошель</button> : <button onClick={() => tonConnectUI.openModal()}>Подключить кошель</button>}
         {address ? "кошель нет" : "кошель есть"}
-        {/* <ul>
+        <ul>
             <li>id: {user.user.id}</li>
             <li>telegram_id: {user.user.telegram_id}</li>
             <li>telegram_name: {user.user.telegram_name}</li>
@@ -23,7 +23,7 @@ const Profile = observer(() => {
             <li>language_code: {user.user.language_code}</li>
             <li>invited_id: {user.user.invited_id}</li>
             <li>wallet: {user.user.wallet}</li>
-        </ul> */}
+        </ul>
         </>
     )
 });
