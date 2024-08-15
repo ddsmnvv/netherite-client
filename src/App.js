@@ -31,8 +31,10 @@ const App = observer(() => {
       getUserByWallet(tonAddress)
         .then(response => console.log(response))
         .catch(error => {
-          if (error.response.status === 404) {
+          if (error.response.status === 404 && !tg.initDataUnsafe?.user) {
             setRedirect(true);
+          } else if(error.response.status === 404) {
+            console.log("регистрация");
           } else {
             localStorage.clear();
             tonConnectUI.disconnect();
