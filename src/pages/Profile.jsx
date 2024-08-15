@@ -2,13 +2,28 @@ import { useTonConnectUI, useTonAddress } from '@tonconnect/ui-react';
 import { observer } from 'mobx-react-lite';
 import { useContext } from 'react';
 import { Context } from '..';
+import { startMining } from '../api/miningAPI';
 
 const Profile = observer(() => {
     
     const {user} = useContext(Context);
+    const [timer, setTimer] = useState(40);
+    const started = false;
     const [tonConnectUI] = useTonConnectUI();
     const address = useTonAddress();
  
+    const handleStartMining = () => {
+        // startMining(user.user.id)
+        // .then(response => {
+        //     if(response) {
+                
+        //     }
+        // })
+        // .catch();
+
+        setInterval(setTimer(timer-1),1000);
+    }
+
     return(
         <>
         <p>Profile</p>
@@ -24,6 +39,8 @@ const Profile = observer(() => {
             <li>telegram_name: {user.user.telegramName}</li>
             <li>wallet: {user.user.wallet}</li>
         </ul>
+        <p>{timer}</p>
+        <button onClick={handleStartMining}>Майнинг начать</button>
         </>
     )
 });
