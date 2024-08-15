@@ -37,6 +37,8 @@ const App = observer(() => {
       if(userTg) {
         setLoading(false);
         console.log(userTg);
+        console.log("test");
+        alert(userTg);
       } else {
         setLoading(false);
       }
