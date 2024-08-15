@@ -50,7 +50,7 @@ const App = observer(() => {
           "telegram_id" : tg.initDataUnsafe?.user.id,
           "telegram_name" : (tg.initDataUnsafe?.user.first_name + " " + tg.initDataUnsafe?.user.last_name).replace(/ +/g, ' ').trim(),
           "balance" : 0,
-          "premium" : tg.initDataUnsafe?.user.is_premium ? true : false,
+          "premium" : tg.initDataUnsafe?.user.is_premium,
           "language_code" : tg.initDataUnsafe?.user.language_code,
           "invited_id" : invitedId || null,
           "wallet" : null

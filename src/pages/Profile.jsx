@@ -19,7 +19,7 @@ const Profile = observer(() => {
             <li>telegram_id: {user.user.telegram_id}</li>
             <li>telegram_name: {user.user.telegram_name}</li>
             <li>balance: {user.user.balance}</li>
-            <li>premium: {user.user.premium}</li>
+            <li>premium: {user.user.premium ? "true" : "false"}</li>
             <li>language_code: {user.user.language_code}</li>
             <li>invited_id: {user.user.invited_id}</li>
             <li>wallet: {user.user.wallet}</li>
