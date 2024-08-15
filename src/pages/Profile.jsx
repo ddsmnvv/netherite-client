@@ -26,7 +26,7 @@ const Profile = observer(() => {
     }
 
     function handleEndMining() {
-        user.balance += 100;
+        user.user.balance += 100;
         setCount(40);
     }
 
