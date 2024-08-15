@@ -13,7 +13,8 @@ const Profile = observer(() => {
     const [isRunning, setIsRunning] = useState(false);
 
     useEffect(() => {
-        getMiningTime(user.user.id)
+        if(user.user.id) {
+            getMiningTime(user.user.id)
             .then(response => {
                 if(response !== 0) {
                     setCount(response);
@@ -25,6 +26,7 @@ const Profile = observer(() => {
             .catch(error => {
                 console.error(error);
             });
+        }
     }, [user]);
 
     useInterval(() => {
