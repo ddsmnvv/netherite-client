@@ -11,7 +11,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Context.Provider value={{user: new UserStore()}}>
-      <TonConnectUIProvider manifestUrl="https://app.netherite.pro/tonconnect-manifest.json" actionsConfiguration={{twaReturnUrl: `https://t.me/${process.env.TELEGRAM_APP_NAME}`}}>
+      <TonConnectUIProvider manifestUrl="https://app.netherite.pro/tonconnect-manifest.json" actionsConfiguration={{twaReturnUrl: `https://t.me/netherite_dev_bot/dev`}}>
         <App />
       </TonConnectUIProvider>
     </Context.Provider>
