@@ -13,21 +13,19 @@ const Profile = observer(() => {
     const [isRunning, setIsRunning] = useState(false);
 
     useEffect(() => {
-        if(user.user.id) {
-            getMiningTime(user.user.id)
-            .then(response => {
-                if(response !== 0) {
-                    setCount(response);
-                } else{
-                    setCount(0);
-                    setIsRunning(false);
-                }
-            })
-            .catch(error => {
-                console.error(error);
-            });
-        }
-    }, [user.user]);
+        getMiningTime(user.user.id)
+        .then(response => {
+            if(response !== 0) {
+                setCount(response);
+            } else{
+                setCount(0);
+                setIsRunning(false);
+            }
+        })
+        .catch(error => {
+            console.error(error);
+        });
+    }, [user.user.id]);
 
     useInterval(() => {
       if(count === 0) {
