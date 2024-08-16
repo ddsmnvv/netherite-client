@@ -1,0 +1,233 @@
+.frens {
+    width: 100%;
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    position: relative;
+    height: max-content;
+    min-height: 100vh;
+    padding-bottom: 54px;
+}
+
+.frens_blocks {
+    width: 100%;
+    display: flex;
+    align-items: start;
+    justify-content: left;
+    padding: 54px 42px 75px 81px;
+    gap: 16px 46px;
+    flex-wrap: wrap;
+}
+
+.frens_blocks-block {
+    width: 100%;
+    max-width: 390px;
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.frens_blocks-block span {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20.8px;
+    text-align: left;
+    color: #FFFFFF99;
+}
+
+.frens_blocks-block h1 {
+    font-family: Sk-Modernist;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 52px;
+    color: #ffff;
+
+}
+
+.frens_blocks-block p {
+    font-family: Sk-Modernist;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20.8px;
+    text-align: left;
+    color: #FFFFFFFC;
+    width: 250px;
+}
+
+.frens_blocks-block p span {
+    font-weight: 700;
+    color: #FFFFFFFC;
+}
+
+.frens_blocks-block__cards span {
+    font-family: Sk-Modernist;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 26px;
+    text-align: left;
+    color: #ffff;
+}
+
+.frens_blocks-block__list {
+    width: 100%;
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.frens_blocks-block__list-item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    list-style: none;
+}
+
+.frens_blocks-block__list-item_desc {
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    flex-direction: column;
+    gap: 3px;
+    margin-left: 16px;
+}
+
+.frens_blocks-block__list-item span {
+    font-family: Sk-Modernist;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 18.2px;
+    text-align: left;
+    color: #FFFFFF99;
+}
+
+.frens_bg img:nth-child(1) {
+    position: absolute;
+    top: 0px;
+    z-index: -1;
+    left: 0px;
+}
+
+.frens_bg img:nth-child(2) {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: -1;
+}
+
+.frens_bg {
+    position: absolute;
+    width: 100%;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    z-index: -1;
+}
+
+.frens_bg img:nth-child(3) {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    z-index: -1;
+}
+
+.frens_bg img:nth-child(4) {
+    position: absolute;
+    right: 182px;
+    bottom: 213px;
+}
+
+.frens_blocks-absolute {
+    position: absolute;
+    left: 81px;
+    bottom: 75px;
+}
+
+.frens_blocks-absolute button {
+    width: 206px;
+    height: 72px;
+    font-family: Sk-Modernist;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20.8px;
+    color: #ffff;
+    border-radius: 16px;
+}
+.mobile_flesh{
+    display: none;
+}
+
+@media(max-width: 600px) {
+    .frens{
+        padding-bottom: 118px;
+    }
+    .frens_blocks {
+        max-width: 390px;
+        width: 100%;
+        padding: 55px 24px;
+        height: 100%;
+        justify-content: start;
+        flex-wrap: nowrap;
+        flex-direction: column  ;
+    }
+
+    .frens_blocks-absolute {
+        left: auto;
+        position: fixed;
+    }
+
+    .frens_bg img:nth-child(1) {
+        position: absolute;
+        top: 0px;
+        z-index: -1;
+        width: 100%;
+        left: 0px;
+    }
+
+    .frens_bg img:nth-child(2) {
+        position: absolute;
+        top: 0px;
+        z-index: -1;
+        width: 100%;
+        left: 0px;
+    }
+    .frens_bg img:nth-child(3){
+        display: none;
+    }
+
+    .bgImageBlocks {
+        display: block;
+        position: absolute;
+        bottom: 0px;
+        z-index: -1;
+        left: 0px;
+        width: 100%;
+    }
+    .frens_blocks-block{
+        max-width: 100%;
+        min-width: 100%;
+        width: 100%;
+    }
+    .frens_bg{
+        display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+    .frens_bg img:nth-child(4){
+        right: auto;
+        display: none;
+    }
+    .frens_blocks-block__list-item_desc{
+        width: 70%;
+    }
+    .mobile_flesh{
+        display: flex;
+        margin-top: 100px !important;
+        margin: 0 auto;
+    }
+    
+}

@@ -1,0 +1,112 @@
+.buttonContainer {
+    display: flex;
+    align-items: flex-end;
+    
+}
+
+.button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 16px;
+    background-color: #FFFFFF26;
+    width: 342px;
+    height: 72px;
+    color: #fff;
+    backdrop-filter: blur(3px);
+    user-select: none;
+
+    div {
+        display: flex;
+        align-items: center;
+    }
+}
+
+.spans {
+    span {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+.arrow {
+    background-color: #fff;
+    color: #161514;
+    padding: 15px;
+    border-radius: 16px;
+    margin: 8px;
+    z-index: 2;
+    cursor: pointer;
+}
+
+.circle {
+    position: absolute;
+    width: 140px;
+    height: 140px;
+    background-color: #FC671166;
+    border-radius: 50%;
+    filter: blur(45px);
+}
+
+.whitecircle {
+    position: absolute;
+    width: 168.67px;
+    height: 168.67px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(128, 128, 128, 0.5);
+    transform: translateX(-35%);
+}
+
+.whitecircle2 {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(128, 128, 128, 0.5);
+    transform: translateX(-45%);
+    top: 60%;
+}
+
+@keyframes fade {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+
+.firstSpan {
+    animation: fade 2s infinite;
+}
+
+.secondSpan {
+    animation: fade 2s infinite 0.5s;
+}
+
+.thirdSpan {
+    animation: fade 2s infinite 1s;
+}
+.button_desc{
+    display: block;
+}
+.button_mobile{
+    display: none;
+}
+@media(max-width: 600px){
+    .button_desc{
+        display: none;
+    }
+    .button_mobile{
+        display: block;
+    }
+    .button{
+        top: 50px;
+        margin: 0 auto;
+    }
+}

@@ -1,0 +1,11 @@
+.redcircle {
+    position: absolute;
+    width: 684px;
+    height: 684px;
+    background: linear-gradient(135deg, #d83b69, #d55629 50%, #fbd141);
+    z-index: 0;
+    opacity: 1;
+    filter: blur(125px);
+    top: -30%;
+}
+

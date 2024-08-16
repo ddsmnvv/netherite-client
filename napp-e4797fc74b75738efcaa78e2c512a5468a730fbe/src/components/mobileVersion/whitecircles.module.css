@@ -1,0 +1,32 @@
+.bigcircle {
+    width: 100%;
+    max-width: 224px;
+    height: 224px;
+    position: absolute;
+    border: 3px solid #FFFFFF;
+    border-radius: 50%;
+    top: 7%;
+    right: 66%;
+    opacity: 0.2;
+}
+
+.smallcircle {
+    width: 100%;
+    max-width: 168px;
+    height: 168px;
+    position: absolute;
+    border: 2px solid #FFFFFF;
+    border-radius: 50%;
+    top: 11%;
+    right: 77%;
+    opacity: 0.2;
+}
+
+@media (min-width: 640px) and (max-width: 864px) {
+    .bigcircle {
+        right: 70%;
+    }
+    .smallcircle {
+        right: 70%;
+    }
+}

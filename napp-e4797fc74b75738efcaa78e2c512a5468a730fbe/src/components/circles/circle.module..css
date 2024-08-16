@@ -1,0 +1,22 @@
+
+
+.whitecircle {
+    position: absolute;
+    width: 168.67px;
+    height: 168.67px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(128, 128, 128, 0.5);
+    transform: translateX(-50%);
+    top: 20%;
+}
+
+.whitecircle2 {
+    position: absolute;
+    border-radius: 50%;
+    border: 1.5px solid rgba(128, 128, 128, 0.5);
+    width: 224.89px;
+    height: 224.89px;
+    transform: translateX(-40%);
+    top: 14%;
+}
+

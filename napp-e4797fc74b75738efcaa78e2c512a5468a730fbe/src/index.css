@@ -1,0 +1,62 @@
+@font-face {
+  font-family: 'Sk-Modernist';
+  src: url('./assets/fonts/Sk-Modernist-Regular.otf') format('opentype');
+  /* Добавьте другие форматы, если необходимо */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+
+.loading-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.loading-image {
+  transform: scale(0.5);
+  animation: grow 2s ease-in-out infinite;
+}
+
+.redirect-image {
+  transform: scale(0.8);
+  animation: redirect-grow 2s ease-in-out infinite;
+}
+
+@keyframes grow {
+  0% { transform: scale(0.4); }
+  50% { transform: scale(0.5); }
+  100% { transform: scale(0.4); }
+}
+
+@keyframes redirect-grow {
+  0% { transform: scale(0.7); }
+  50% { transform: scale(0.8); }
+  100% { transform: scale(0.7); }
+}
+
+body {
+  margin: 0;
+  font-family: 'Sk-Modernist', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  background-color: #161514;
+  -moz-osx-font-smoothing: grayscale;
+}
+::-webkit-scrollbar{
+  display: none;
+}
+
+.btn {
+  background: linear-gradient(134.98deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.02) 100%);
+  border: 1px solid #FFFFFF33;
+  backdrop-filter: blur(4px);
+}

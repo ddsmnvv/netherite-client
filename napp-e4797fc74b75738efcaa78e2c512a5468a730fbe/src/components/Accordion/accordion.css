@@ -1,0 +1,58 @@
+/* src/components/accordion.css */
+
+.graph_nav-block__accordion {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  position: relative;
+  flex-direction: column;
+  max-height: 21px; /* Изначальная высота */
+  transition: max-height 0.3s ease; /* Плавное раскрытие */
+}
+
+.graph_nav-block__accordion.open {
+  max-height: 500px; /* Задайте достаточно большую высоту для раскрытия */
+}
+
+.graph_nav-block__accordion-button {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  gap: 4px;
+  cursor: pointer; /* Добавлено для указания на кликабельность */
+}
+
+.graph_nav-block__accordion-button p {
+  font-family: Sk-Modernist;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20.8px;
+  text-align: left;
+  color: #FFFFFF;
+}
+
+.graph_nav-block__accordion-button svg {
+  color: #FFFFFF;
+}
+
+.graph_nav-block__accordion-item {
+  width: 100%;
+  top: 30px;
+padding: 10px 10px;
+gap: 5px;
+  position: absolute;
+  cursor: pointer;
+  color: #FFFFFF;
+  background-color: rgba(96, 96, 96, 0.722);
+  border-radius: 8px;
+  z-index: 999999;
+}
+
+.font-weight-400 p {
+  font-weight: 400;
+}
+
+.font-weight-700 p {
+  font-weight: 700;
+}

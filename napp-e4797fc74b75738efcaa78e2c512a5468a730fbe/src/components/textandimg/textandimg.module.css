@@ -1,0 +1,33 @@
+.textimg {
+    display: flex;
+    max-width: 287px;
+    height: 150px;
+    margin: 47px 0 0 30px;
+
+
+
+    p {
+        font-weight: 700;
+        font-size: 12px;
+        z-index: 2;
+        transform: rotate(-14.5deg);
+        margin: 100px 0 0 30px;
+    }
+}
+
+.card2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    width: 82px;
+    height: 89px;
+    margin: 2px 7px 0 -4px;
+    background-color: #161514;
+    transform: rotate(-15deg);
+    border-top-right-radius: 10px;
+}
+
+.diamondImg {
+    transform: rotate(12deg);
+}

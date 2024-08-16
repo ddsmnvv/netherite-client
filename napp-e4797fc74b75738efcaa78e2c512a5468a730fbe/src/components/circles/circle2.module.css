@@ -1,0 +1,27 @@
+.circles {
+    position: relative;
+    height: 1px;
+    position: relative;
+    height: 1px;
+    top: -311px;
+    left: -204px;
+}
+
+.whitecircle {
+    position: absolute;
+    width: 168.67px;
+    height: 168.67px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(128, 128, 128, 0.5); /* Серая обводка */
+    transform: translateX(100%);
+}
+
+.whitecircle2 {
+    position: absolute;
+    border-radius: 50%;
+    border: 1.5px solid rgba(128, 128, 128, 0.5);
+    width: 224.89px;
+    height: 224.89px;
+    transform: translateX(75%);
+    top: -30px
+}
