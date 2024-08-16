@@ -4,6 +4,8 @@ import { useContext, useEffect, useState } from 'react';
 import { Context } from '..';
 import { endMining, getMiningTime, startMining } from '../api/miningAPI';
 import useInterval from '../components/hooks/UseInterval';
+import { NavLink } from 'react-router-dom';
+import { FRIENDS_ROUTE, TASKS_ROUTE } from '../utils/routes-consts';
 
 const Profile = observer(() => {
     
@@ -13,19 +15,22 @@ const Profile = observer(() => {
     const [isRunning, setIsRunning] = useState(false);
 
     useEffect(() => {
-        getMiningTime(user.user.id)
-        .then(response => {
-            if(response !== 0) {
-                setCount(response);
-            } else{
-                setCount(0);
-                setIsRunning(false);
-            }
-        })
-        .catch(error => {
-            console.error(error);
-        });
-    }, [user.user.id]);
+        if(user.isAuth) {
+            getMiningTime(user.user.id)
+            .then(response => {
+                if(response.data !== 0) {
+                    setCount(Number(response.data.toFixed(0)));
+                    setIsRunning(true);
+                } else{
+                    setCount(0);
+                    setIsRunning(false);
+                }
+            })
+            .catch(error => {
+                console.error(error);
+            });
+        }
+    }, [user.isAuth]);
 
     useInterval(() => {
       if(count === 0) {
@@ -38,7 +43,7 @@ const Profile = observer(() => {
     function handleStartMining() {
         startMining(user.user.id)
         .then(response => {
-            if(response) {
+            if(response.data) {
                 setIsRunning(true);
                 setDelay(1000);
             }
@@ -49,7 +54,7 @@ const Profile = observer(() => {
     function handleEndMining() {
         endMining(user.user.id)
         .then(response => {
-            if(response) {
+            if(response.data) {
                 user.user.balance += 100;
                 setCount(40);
             }
@@ -63,7 +68,7 @@ const Profile = observer(() => {
     return(
         <>
         <p>Profile</p>
-        {address ? <button onClick={() => tonConnectUI.disconnect()}>Отключить кошель</button> : <button onClick={() => tonConnectUI.openModal()}>Подключить кошель</button>}
+        {address ? <button onClick={() => { tonConnectUI.disconnect(); localStorage.clear(); user.setIsAuth(false);}}>Отключить кошель</button> : <button onClick={() => tonConnectUI.openModal()}>Подключить кошель</button>}
         {address ? "кошель есть" : "кошель нет"}
         <ul>
             <li>id: {user.user.id}</li>
@@ -77,12 +82,16 @@ const Profile = observer(() => {
         </ul>
         {user.isAuth && (
             <>
-            <p>{count}</p>
+            <p>{count.toFixed(0)}</p>
             {count === 40 && isRunning === false && <button onClick={() => handleStartMining()}>Майнинг начать</button>}
             {count === 0 && isRunning === false && <button onClick={() => handleEndMining()}>Майнинг завершить</button>}
             </>
             )
         }
+        <div style={{display: "flex", flexDirection : "column"}}>
+            <NavLink to={TASKS_ROUTE}>задания</NavLink>
+            <NavLink to={FRIENDS_ROUTE}>рефералы</NavLink>
+        </div>
         </>
     )
 });
